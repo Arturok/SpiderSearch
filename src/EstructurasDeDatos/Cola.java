@@ -1,36 +1,45 @@
 package EstructurasDeDatos;
 
 /**
+ * Esta clase define una estructura de datos llamada Cola donde se pueden insertar tareas para
+ * su posterior ejecucion
  * @author arturo
  * @version 02/04/2015 
  */
 
 public class Cola {
-	
+	//Campos de la clase
 	Nodo cabeza;
 	Nodo cola;
 	int size;	
-	
-	public Cola(){ //Constructor de la clase ListaEnlazada
-		
+	/**
+	 * Constructor de la clase Cola
+	 */	
+	public Cola(){ 		
 		cabeza = null;
 		cola = null;
 		size = 0;
-	}
-	
+	}//Cierre del constructor
+	/**
+	 * Funcion que revisa si la cola esta vacia
+	 * @return Booleano indicando si la cola esta vacia o no
+	 */
 	public boolean estaVacia(){ //Metodo que verifica si la lista esta vacia
 		return(cabeza == null)?true:false;
-	}
-	
+	}//cierre de la funcion
+	/**
+	 * Metodo que agrega un elemento al final de la cola
+	 * @param obj - Objeto destinado a agregar en la cola
+	 */
 	public void addFinal(Object obj){ //Metodo que agrega nodos al inicio de la lista
-		
-		if(estaVacia()){
-			cabeza = new Nodo(obj);
-			cola = cabeza;
+		if(estaVacia()){ 
+			//Caso cola vacia
+			cola = cabeza; //unico nodo es cabeza y cola
 			Nodo p = new Nodo(0);
 			cabeza.enlazarProfundidad(p);
 		}
 		else{
+			//Caso en que la cola ya tenga algun elemento
 			Nodo temp = cola;
 			Nodo nuevo = new Nodo(obj);
 			temp.enlazarSiguiente(nuevo);
@@ -38,40 +47,51 @@ public class Cola {
 			Nodo p = new Nodo(0);
 			nuevo.enlazarProfundidad(p);
 		}
-		size++; //suma 1 al contador de tamanio cuando se agrega un nodo
-	}
+		size++; //suma 1 al contador de tamaño cuando se agrega un elemento a la lista
+	}//Ciere del metodo
+	/**
+	 * Metodo que elimina el primer elemento de la cola
+	 */
 	
 	public void eliminaInicio(){ //Metodo para eliminar al inicio
-		if(cabeza == null)
+		if(estaVacia())
+			//En caso de que la lista este vacia			
 			System.out.println("La lista esta vacia");
 		else{
+			//Caso en que la cola ya tenga algun elemento
 			Nodo temp = cabeza.obtenerSiguiente();
 			cabeza = temp;			
 		}
-		size--;
-	}
-	
-	public Nodo obtenerInicio(){ //Metodo para obtener el nodo en una posicion
-		return cabeza;
-		//Nodo temp = cabeza;		
-		//return temp.obtenerValor();			
-	}
-	
+		size--;//resta 1 al contador de tamaño cuando se elimina un elemento de la lista 
+	}//cierre del metodo
+	/**
+	 * Funcion que obtiene el primer elemento de la cola
+	 * @return primer Nodo con el objeto que contiene
+	 */
+	public Nodo obtenerInicio(){
+		return cabeza;			
+	} //cierre de la funcion
+	/**
+	 * Metodo que imprime los valores contenidos en los nodos de la cola
+	 */
 	public void imprimir(){
 		int contador = 0;
 		Nodo temp = cabeza;
 		while(contador < size){
+			//Bucle que recorre la cola en busca de los nodos
 			System.out.println(temp.obtenerValor().toString());
 			temp=temp.obtenerSiguiente();
-			contador++;		
+			contador++;
 		}	
-	}
-	
-	
+	}//cierre del metodo
+	/**
+	 * Funcion que retorna eltamaño de la cola
+	 * @return Entero que indica el tamaño de la cola
+	 */	
 	public int getSize(){ //metodo para obtener el tamanio de la lista
 		return size;
-	}
-}
+	}//Cierre de la funcion
+}//Cierre de la Clase
 
 	
 	

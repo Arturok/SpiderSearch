@@ -8,11 +8,16 @@ import java.net.MalformedURLException;
  */
 
 public class SpiderBot {
-	
-	
-	public SpiderBot(){}
-	
-	
+	/**
+	 * Constructor de la clase SpiderBot
+	 */	
+	public SpiderBot(){
+	}//Cierre del Constructor
+	/**
+	 * Funcion main de la funcion
+	 * @param args argumento de la funcion main
+	 * @throws MalformedURLException - excepcion dada al malformar una url
+	 */
 	public static void main(String[] args) throws MalformedURLException{
 		
 		XMLParser parseThreads = new XMLParser("spider.xml","maxthreads");
@@ -20,10 +25,6 @@ public class SpiderBot {
 		int maxthreads = Integer.parseInt(maxthread);
 		
 		listaHilos hilos = new listaHilos();
-		hilos.crearHilos(maxthreads);
-		
-		
-	}
-	
-
-}
+		hilos.crearHilos(maxthreads);		
+	}//Cierre de la Funcion
+}//Cierre de la clase

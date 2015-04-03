@@ -15,32 +15,27 @@ import java.io.BufferedReader;
  */
 
 public class PAGEParser {
-	
+	//campos de la clase
 	URL url;
-	
+	/**
+	 * Constructor de la clase PAGEParser
+	 */
 	public PAGEParser(){
-	}
-	
-
+	}//Cierra el constructor
+	/**
+	 * Metodo que parsea las url
+	 * @param url - url seleccionada a parsear
+	 * @throws IOException - Excepcion al declarar de mala forma la url
+	 */
 	public void parsear(URL url) throws IOException{
 		this.url = url;
 	    InputStream is = url.openConnection().getInputStream();
-
-	    BufferedReader reader = new BufferedReader( new InputStreamReader( is )  );
-
+	    BufferedReader reader = new BufferedReader( new InputStreamReader(is));
 	    String line = null;
 	    while( ( line = reader.readLine() ) != null )  {
+	    	//Bucle que imprime todo el codigo de la pagina
 	       System.out.println(line);
 	    }
-	    reader.close();
-	
-		
-		
-		
-		
-		
-		
-	}
-	
-
-}
+	    reader.close();	
+	}//Cierre del Metodo
+}//Cierre de la clase
