@@ -5,25 +5,27 @@ public class Main {
 
 	public static void main(String[] args) {
 	
-	ListaEnlazada lista = new ListaEnlazada();
-	System.out.println("Esta vacia???"+lista.estaVacia());
+	Cola colaU = new Cola();
+	System.out.println("Esta vacia??? "+colaU.estaVacia());
 	
-	lista.addFinal("www.nacion.com"); //addFinal
-	lista.addFinal("www.google.com"); //addInicio
-	lista.addFinal("www.wikipedia.org");
-	lista.addFinal("www.shippuden.tv");
+	colaU.addFinal("www.nacion.com"); //addFinal
+	colaU.addFinal("www.google.com"); //addInicio
+	colaU.addFinal("www.wikipedia.org");
+	colaU.addFinal("www.shippuden.tv");
 
-	
-	
-	
 
 	System.out.println("");
-	lista.imprimir();
+	colaU.imprimir();
 	
-	lista.eliminarenPos(2);
+	colaU.eliminaInicio();;
 	System.out.println("");
-
-	lista.imprimir();
+	colaU.imprimir();
+	
+	System.out.println("");
+	System.out.println(colaU.obtenerInicio());
+	System.out.println("Esta vacia??? "+colaU.estaVacia());
+	
+	
 
 
 
