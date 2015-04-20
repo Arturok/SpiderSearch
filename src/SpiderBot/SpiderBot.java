@@ -16,15 +16,21 @@ public class SpiderBot {
 	/**
 	 * Funcion main de la funcion
 	 * @param args argumento de la funcion main
+	 * @return 
 	 * @throws MalformedURLException - excepcion dada al malformar una url
 	 */
-	public static void main(String[] args) throws MalformedURLException{
-		
+	public void inicia(){
 		XMLParser parseThreads = new XMLParser("spider.xml","maxthreads");
 		String maxthread = parseThreads.obtenerCola().obtenerInicio().obtenerValor().toString();
 		int maxthreads = Integer.parseInt(maxthread);
 		
 		listaHilos hilos = new listaHilos();
-		hilos.crearHilos(maxthreads);		
+		try {
+			hilos.crearHilos(maxthreads);
+		} catch (MalformedURLException e) {e.printStackTrace();}		
+		
+		
+		
+		
 	}//Cierre de la Funcion
 }//Cierre de la clase

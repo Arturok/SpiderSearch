@@ -74,6 +74,53 @@ public class ListaCircularDoble {
 		size++; //suma 1 al contador de tamanio cuando se agrega un nodo
 	}//Cierre del Constructor	
 	/**
+	 * Metodo usado para agregar un Nodo al final de la lista actual
+	 * @param nuevo - Nodo a ser agregado a la lista
+	 */
+	public void appendNodo(Nodo nuevo){
+		if(estaVacia()){
+			cabeza = nuevo;
+			cola = nuevo;
+			size = 1;
+		}
+		else{
+			try{
+				Nodo temp = cola;
+				temp.enlazarSiguiente(nuevo);
+				nuevo.enlazarAnterior(temp);
+				cola = nuevo;
+				cola.enlazarSiguiente(cabeza);
+				cabeza.enlazarAnterior(cola);
+				size++;
+			}catch(Exception CE){}
+			
+		}
+	}
+	
+	/**
+	 * Metodo usado para agregar una cola existente a la actual
+	 * @param nueva
+	 */
+	public void appendLista(ListaCircularDoble nueva){
+		if(estaVacia()){
+			cabeza = nueva.cabeza;
+			cola = nueva.cola;
+			size = nueva.size;
+		}
+		else{
+			try{
+				Nodo temp = cola;
+				temp.enlazarSiguiente(nueva.cabeza);
+				nueva.cabeza.enlazarAnterior(temp);
+				cola = nueva.cola;
+				cola.enlazarSiguiente(cabeza);
+				cabeza.enlazarAnterior(cola);
+				size=size+nueva.size;
+			}catch(Exception CE){}
+			
+		}
+	}
+	/**
 	 * Metodo que elimina el primer Nodo de la Lista
 	 */
 	public void eliminaInicio(){
@@ -135,14 +182,14 @@ public class ListaCircularDoble {
 	 * @param indice - Recibe la posicion de la lista que se desea eliminar
 	 * @return Objeto contenido en el nodo de la posicion especificada
 	 */	
-	public Object obtenerenPos(int indice){
+	public Nodo obtenerenPos(int indice){
 		int contador = 0;
 		Nodo temporal = cabeza;
 		while(contador < indice){
 			temporal = temporal.obtenerSiguiente();
 			contador++;
 		}
-		return temporal.obtenerValor();			
+		return temporal;			
 	}//Cierre de la Funcion
 	/**
 	 * Funcion que retorna eltamaño de la cola
@@ -154,6 +201,7 @@ public class ListaCircularDoble {
 		while(contador < size){
 			//Ciclo que recorre la lista 
 			System.out.println(temp.obtenerValor().toString());
+			System.out.println(temp.obtenerProfundidad().obtenerValor().toString());
 			temp=temp.obtenerSiguiente();
 			contador++;		
 		}	

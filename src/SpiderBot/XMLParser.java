@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 import EstructurasDeDatos.Cola;
 
 /**
+ * Clase usada para extraer datos de un archivo.xml
  * @author arturo
  * @version 02/04/2015 
  */
@@ -48,11 +49,12 @@ public class XMLParser {
 				//Solo si el nodo es diferente de nulo
 				Node padre = documento.getChildNodes().item(0); //Obtiene la primera jerarquia del documento
 				NodeList hijos = padre.getChildNodes(); //Obtiene una lista con los nodos de la segunda jerarquia
-				
-				for(int i = 0; i < (hijos.getLength()-1)/2; i++){ 					
-					String nuevo = documento.getElementsByTagName(tag).item(i).getTextContent(); //Obtiene el contenido del XML en la posicion i
-					colaParse.addFinal(nuevo); //Introduce las URL's en una lista
-				}
+				try{
+					for(int i = 0; i < (hijos.getLength()-1)/2; i++){ 					
+						String nuevo = documento.getElementsByTagName(tag).item(i).getTextContent(); //Obtiene el contenido del XML en la posicion i
+						colaParse.addFinal(nuevo); //Introduce las URL's en una lista
+					}
+				}catch(Exception e){}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

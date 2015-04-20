@@ -1,11 +1,13 @@
 package SpiderBot;
 
-import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import EstructurasDeDatos.Cola;
+import EstructurasDeDatos.ListaCircularDoble;
 import EstructurasDeDatos.ListaEnlazada;
+import EstructurasDeDatos.Nodo;
 
 /**
  * Clase encargada de crear una lista de hilos trabajadores
@@ -33,38 +35,49 @@ public class listaHilos {
 		/**
 		 * Metodo encargado de ejecutar las tareas asignadas al hilo
 		 */
-		public synchronized void run(){	
-			while(true){
-				//Bucle encargado de darle vida al hilo
-				if(colaURL.estaVacia() == false){
-					//Caso de que la cola este vacia
-					try {
-						String U = colaURL.obtenerInicio().obtenerValor().toString();
-						URL url = new URL(U);
-						System.out.println("soy el hilo: "+hilo+" y tengo la url: "+url);
+		public void run(){	
+			try {
+				while(true){
+					
+					//Bucle encargado de darle vida al hilo
+					if(colaURL.estaVacia() == false){
+						Nodo Ini = colaURL.obtenerInicio();
 						colaURL.eliminaInicio();
-						Thread.sleep(10000);
-						PAGEParser page = new PAGEParser();
-						page.parsear(url);
+						String URL = Ini.obtenerValor().toString();
+						int P = Integer.parseInt(Ini.obtenerProfundidad().obtenerValor().toString());
+						listaURLParseadas.appendNodo(Ini);
+						WebParser webparser = new WebParser(URL,P);
+						Cola colanueva = webparser.getLinks();
+						webparser.getText();
+						colanueva.imprimir();	
 						
-						contador++;
-						Thread.sleep(10000);
-					} catch (InterruptedException | IOException e) {e.printStackTrace();}
+						if (P+1 <= recursivity){
+							if (colanueva != null){
+								colaURL.appendCola(colanueva);
+							}
+						}
+						
+					}
+					else
+						wait();
+					
+					//colanueva.imprimir();	
 				}
-				else{
-					//Caso en que la cola tenga elementos dentro
-					//System.out.println("soy el hilo: "+hilo+" y estoy esperando un url");
-					try {wait();} catch (InterruptedException e) {e.printStackTrace();}
-					contador++;
-				}			
-			}		
+				
+			} catch (Exception e) {System.out.println("no entra al while");}
+		
 		}//Cierre del metodo run
+		
 	}
 	
 	int trabajadores;
 	int contador = 0;
 	XMLParser urlParser = new XMLParser("targets.xml","URL");
 	Cola colaURL = urlParser.obtenerCola();
+	XMLParser recursivityParser = new XMLParser("spider.xml","recursivity");
+	int recursivity = Integer.parseInt(recursivityParser.obtenerCola().obtenerInicio().obtenerValor().toString());
+	ListaCircularDoble listaURLParseadas = new ListaCircularDoble();
+	ListaCircularDoble listaPalabras = new ListaCircularDoble();
 	/**
 	 * Constructor de la clase listaHilos
 	 */

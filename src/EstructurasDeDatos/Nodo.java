@@ -11,6 +11,7 @@ public class Nodo{
 	Nodo siguiente;
 	Nodo anterior;
 	Nodo profundidad;
+	Nodo cantidad;
 	/**
 	 * Constructor de la clase Nodo
 	 * @param valor - Objeto a almecenar dentro del nodo
@@ -47,6 +48,13 @@ public class Nodo{
 	public void enlazarProfundidad(Nodo p){
 		profundidad = p;
 	}//Cierre de la Metodo
+	/**
+	 * Metodo que enlaza un atributo de cantidad al Nodo
+	 * @param c - Entero que indica la cantidad de veces que aparace una letra
+	 */
+	public void enlazarCantidad(Nodo c){
+		cantidad = c;		
+	}//Cierre del Metodo
 	/**
 	 * Funcion que retorna el nodo siguiente enlazado
 	 * @return - Nodo siguiente 	

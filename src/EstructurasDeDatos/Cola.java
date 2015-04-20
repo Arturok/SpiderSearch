@@ -9,7 +9,7 @@ package EstructurasDeDatos;
 
 public class Cola {
 	//Campos de la clase
-	Nodo cabeza;
+	public Nodo cabeza;
 	Nodo cola;
 	int size;	
 	/**
@@ -34,7 +34,8 @@ public class Cola {
 	public void addFinal(Object obj){ //Metodo que agrega nodos al inicio de la lista
 		if(estaVacia()){ 
 			//Caso cola vacia
-			cola = cabeza; //unico nodo es cabeza y cola
+			cabeza = new Nodo(obj);
+			cola = cabeza;
 			Nodo p = new Nodo(0);
 			cabeza.enlazarProfundidad(p);
 		}
@@ -49,10 +50,60 @@ public class Cola {
 		}
 		size++; //suma 1 al contador de tamaño cuando se agrega un elemento a la lista
 	}//Ciere del metodo
+	
+	public void addURL(String url, int profundidad){
+		if(estaVacia()){ 
+			//Caso cola vacia
+			cabeza = new Nodo(url);
+			cola = cabeza;
+			Nodo p = new Nodo(profundidad);
+			cabeza.enlazarProfundidad(p);
+		}
+		else{
+			//Caso en que la cola ya tenga algun elemento
+			Nodo temp = cola;
+			Nodo nuevo = new Nodo(url);
+			temp.enlazarSiguiente(nuevo);
+			cola = nuevo;
+			Nodo p = new Nodo(profundidad);
+			nuevo.enlazarProfundidad(p);
+		}
+		size++;
+		
+	}
+	
+	/**
+	 * Metodo usado para agregar una cola existente a la actual
+	 * @param nueva
+	 */
+	public void appendCola(Cola nueva){
+		if (nueva.estaVacia()){
+			try {
+				finalize();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(estaVacia()){
+			cabeza = nueva.cabeza;
+			cola = nueva.cola;
+			size = nueva.size;
+		}
+		else{
+			try{
+				Nodo temp = cola;
+				temp.enlazarSiguiente(nueva.cabeza);
+				cola = nueva.cola;
+				size=size+nueva.size;
+			}catch(Exception CE){}
+			
+		}
+	}
+	
 	/**
 	 * Metodo que elimina el primer elemento de la cola
-	 */
-	
+	 */	
 	public void eliminaInicio(){ //Metodo para eliminar al inicio
 		if(estaVacia())
 			//En caso de que la lista este vacia			
@@ -80,6 +131,7 @@ public class Cola {
 		while(contador < size){
 			//Bucle que recorre la cola en busca de los nodos
 			System.out.println(temp.obtenerValor().toString());
+			System.out.println(temp.obtenerProfundidad().obtenerValor().toString());
 			temp=temp.obtenerSiguiente();
 			contador++;
 		}	
